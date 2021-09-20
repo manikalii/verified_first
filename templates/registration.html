@@ -1,0 +1,121 @@
+
+ {% extends 'base.html' %}
+ {% load static %}
+
+ {% block content %}
+
+ <style>
+	.badge{
+		background-color:#A9A9B0;
+		padding-left:5px !important;
+		margin-right:5px !important;
+	}
+	.close{
+		border:none;
+		float:left !important;
+		margin-right:2px;
+		color:#fff;
+		background-color: transparent !important;
+	}
+	.custom-control-label{
+		padding-left: 10px;
+	}
+	.custom-control-input{
+		margin-top: 5px;
+	}
+</style>
+
+ <div class=" p-5">
+
+	
+
+
+	<div class="text-center mb-5 ">
+		<p class="alert-success">Email Verified </p>
+		<h4 class="text-info">Registration Form</h4>
+
+		{% if messages %}
+		{% for message in messages %}
+			{% if message.tags == 'error' %}
+			
+				<h6 class="text-danger mt-4">{{message}}</h6>
+			{% endif %}
+		{% endfor %}
+		{% endif %}
+		
+		
+	</div>
+
+	<div class="row justify-content-center">
+		<div class="col-sm-6">
+			<form method="post" action="{% url 'registration' %}" class="row g-3 justify-content-center">
+				{% csrf_token %}
+				<div class="col-12">
+				  <input type="text" readonly class="form-control" id="email" name="email" value="{{ email }}">
+				</div>
+				<div class="col-12">
+					<label for="name" class="form-label">Name</label>
+					<input type="text" class="form-control" id="name" name="name" value="">
+				  </div>
+				<div class="col-12">
+					<label for="phone" class="form-label">Phone</label>
+					<input type="text" class="form-control" id="phone" name="phone" value="">
+				</div>
+
+				<div class="col-12">
+				<label for="languages" class="form-label">Languages</label>
+
+				<select name="languages" id="languages" class="form-control "  multiple="multiple" style="display: none;">
+					
+					<option value="AL">Alabama</option>
+
+				
+				</select>
+
+					
+				</div>
+
+				
+
+				
+				<div class="col-12 text-center">
+				  <button type="submit" class="btn btn-primary mb-3">Submit</button>
+				</div>
+			  </form>
+		</div>
+	</div>
+
+	
+</div>
+
+
+
+ {% endblock content %}
+
+ {% block script %}
+
+
+ <script>
+
+	window.onload = loadLanguages;
+
+	function loadLanguages(){
+		url = '{% url "ajax_load_languages" %}',
+		$.ajax({
+            url: url,
+            success: function (data) { 
+				console.log(data);
+                $("#languages").html(data);
+				$("select").bsMultiSelect();
+               
+            }
+        });
+
+	}
+
+	
+
+
+	</script>
+    
+{% endblock script %}

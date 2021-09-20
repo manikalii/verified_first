@@ -1,0 +1,27 @@
+
+ {% extends 'base.html' %}
+
+ {% block content %}
+
+ <div class=" p-5">
+
+
+	<div class="text-center mb-5 ">
+		<h4 class="text-info">Registration Form</h4>
+		<p class="text-danger">Please confirm your email first....</p>
+	</div>
+
+	<form method="post" action="{% url 'home' %}" class="row justify-content-center">
+		{% csrf_token %}
+		<div class="col-auto">
+		  <label for="staticEmail2" class="visually-hidden">Email</label>
+		  <input type="text" class="form-control" id="email" name="email" value="">
+		</div>
+		
+		<div class="col-auto">
+		  <button type="submit" class="btn btn-primary mb-3">Confirm Email</button>
+		</div>
+	  </form>
+</div>
+
+ {% endblock content %}
